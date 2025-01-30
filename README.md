@@ -1,6 +1,6 @@
-# Humble Superhero API
+# Humble Superhero 
 
-This project implements a simple API for managing superheroes and their humility scores using NestJS for the backend and Vite/React for the frontend.
+This project implements a simple web app for managing superheroes and their humility scores using NestJS for the backend and Vite/React for the frontend.
 
 ## Project Structure
 
