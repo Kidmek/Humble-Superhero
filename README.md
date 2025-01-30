@@ -44,5 +44,7 @@ I would:
 - Use a real database instead of in-memory storage.
 - Implement pagination, filter and more flexible sorting.
 - Implement authentication so that users can rate superheros humility instead of setting it directly it would be the average of the votes.
+- Realtime notification to be sent for superheroes in case of <mark>crisis</mark> :smiley:.
 - Improve the frontend UI/UX.
+- Integrate Swagger since there are going to be more apis.
 - Deploy the application.
