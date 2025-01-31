@@ -17,6 +17,7 @@ humble-superhero/
 1. `cd backend`
 2. `npm install`
 3. `npm run start:dev` (Runs on http://localhost:3000)
+4. `npm run test`(to run the test)
 
 ### Frontend
 
