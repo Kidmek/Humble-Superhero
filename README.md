@@ -7,12 +7,18 @@ This project implements a simple web app for managing superheroes and their humi
 🔹 This repository contains an additional branch called `extra`, which includes extra features that are **not part of the main implementation**.  
 
 🔹 The `extra` branch contains potential enhancements that may be added in the future, such as:  
+  - Used sqlite and typeorm instead of plain array.
   - Editting and deleting functionality.
   - Swagger documentation. (Accessible on localhost:3000/api)  
   - Minor frontend changes.
 
 🔹 These features are **not required for the main project** but serve as an extension for future improvements.  
+### ⚠️ **Reminder: Install Dependencies Again!**  
+If you switch to the `extra` branch, make sure to **install dependencies again** by running:  
 
+```bash
+npm install
+```
 ---
 
 ## Project Structure
@@ -37,7 +43,7 @@ humble-superhero/
 
 1. `cd ../frontend`
 2. `npm install`
-3. `npm run dev` (Runs on http://localhost:5173 by default, make sure the port is not taken or adjust the cors configuration in **backend/src/main.ts**)
+3. `npm run dev` (Runs on http://localhost:5173 by default, make sure the port is not taken or adjust the cors configuration in `backend/src/main.ts`)
 
 ## Usage
 
