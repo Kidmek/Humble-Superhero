@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+} from '@nestjs/common';
 import { SuperheroesService } from './superheroes.service';
 import { Superhero } from './entities/superhero.entity';
 
@@ -14,5 +22,18 @@ export class SuperheroesController {
   @Get()
   findAll() {
     return this.superheroesService.getSuperheroes();
+  }
+
+  @Put(':name')
+  update(
+    @Param('name') name: string,
+    @Body() updateSuperheroDto: Superhero,
+  ): Superhero {
+    return this.superheroesService.updateSuperhero(name, updateSuperheroDto);
+  }
+
+  @Delete(':name')
+  delete(@Param('name') name: string): Superhero[] {
+    return this.superheroesService.deleteSuperhero(name);
   }
 }

@@ -5,6 +5,7 @@ import { API_URL, Superhero } from "./constants";
 
 const App: React.FC = () => {
   const [superheroes, setSuperheroes] = useState<Superhero[]>([]);
+  const [selected, setSelected] = useState<Superhero | null>(null);
   const [showDialog, setShowDialog] = useState(false);
 
   useEffect(() => {
@@ -21,35 +22,81 @@ const App: React.FC = () => {
     }
   };
 
+  const onDelete = async (name: string) => {
+    const userResponse = window.confirm(
+      "Are you sure you want to delete this superhero?"
+    );
+    if (userResponse) {
+      try {
+        const response = await fetch(`${API_URL}/${name}`, {
+          method: "DELETE",
+        });
+        if (response.ok) {
+          fetchSuperheroes();
+          setSelected(null);
+        }
+      } catch (error) {
+        alert("Error deleting superhero");
+        console.error("Error deleting superhero:", error);
+      }
+    }
+  };
+
   return (
     <div className={styles.container}>
       <h1>Humble Superheroes</h1>
       <button
         className={styles.addBtn}
-        onClick={() => setShowDialog(true)}
+        onClick={() => {
+          setSelected(null);
+          setShowDialog(true);
+        }}
         type="button"
       >
         Add Superhero
       </button>
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Superpower</th>
-            <th>Humility Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {superheroes.map((hero) => (
-            <tr key={hero.name}>
-              <td>{hero.name}</td>
-              <td>{hero.superpower}</td>
-              <td>{hero.humilityScore}</td>
+      {!superheroes?.length ? (
+        <span className={styles.noData}>No superheroes found, add some!</span>
+      ) : (
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Superpower</th>
+              <th>Humility Score</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {superheroes.map((hero) => (
+              <tr key={hero.name}>
+                <td>{hero.name}</td>
+                <td>{hero.superpower}</td>
+                <td>{hero.humilityScore}</td>
+                <td>
+                  <div>
+                    <button
+                      onClick={() => {
+                        setSelected(hero);
+                        setShowDialog(true);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className={styles.delete}
+                      onClick={() => onDelete(hero.name)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       {showDialog && (
         <AddSuperhero
@@ -58,6 +105,7 @@ const App: React.FC = () => {
             setShowDialog(false);
             fetchSuperheroes();
           }}
+          selected={selected}
         />
       )}
     </div>

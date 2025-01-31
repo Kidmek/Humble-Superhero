@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./addSuperhero.module.css";
 import { API_URL, Superhero } from "../../constants";
 
 interface AddSuperheroProps {
   onClose: () => void;
   onSuccess: () => void;
+  selected: Superhero | null;
 }
 
-const AddSuperhero: React.FC<AddSuperheroProps> = ({ onClose, onSuccess }) => {
+const AddSuperhero: React.FC<AddSuperheroProps> = ({
+  onClose,
+  onSuccess,
+  selected,
+}) => {
   const [formData, setFormData] = useState({
     name: "",
     superpower: "",
@@ -21,9 +26,10 @@ const AddSuperhero: React.FC<AddSuperheroProps> = ({ onClose, onSuccess }) => {
   });
 
   const addSuperhero = async (newHero: Superhero) => {
+    const api = selected ? `${API_URL}/${selected.name}` : API_URL;
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
+      const response = await fetch(api, {
+        method: selected ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newHero),
       });
@@ -83,6 +89,22 @@ const AddSuperhero: React.FC<AddSuperheroProps> = ({ onClose, onSuccess }) => {
     }
   };
 
+  useEffect(() => {
+    if (selected) {
+      setFormData({
+        name: selected.name,
+        superpower: selected.superpower,
+        humilityScore: selected.humilityScore.toString(),
+      });
+    } else {
+      setFormData({
+        name: "",
+        superpower: "",
+        humilityScore: "",
+      });
+    }
+  }, [selected]);
+
   return (
     <div className={styles.dialog}>
       <div className={styles.dialogContent}>
@@ -134,7 +156,7 @@ const AddSuperhero: React.FC<AddSuperheroProps> = ({ onClose, onSuccess }) => {
           </span>
         )}
         <div className={styles.dialogActions}>
-          <button onClick={handleSubmit}>Add</button>
+          <button onClick={handleSubmit}>{selected ? "Update" : "Add"}</button>
           <button className={styles.cancel} onClick={onClose}>
             Cancel
           </button>
