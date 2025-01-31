@@ -9,12 +9,15 @@ import {
 } from '@nestjs/common';
 import { SuperheroesService } from './superheroes.service';
 import { Superhero } from './entities/superhero.entity';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('superheroes')
 @Controller('superheroes')
 export class SuperheroesController {
   constructor(private readonly superheroesService: SuperheroesService) {}
 
   @Post()
+  @ApiBody({ type: Superhero })
   create(@Body() createSuperheroDto: Superhero): Superhero[] {
     return this.superheroesService.addSuperhero(createSuperheroDto);
   }
@@ -25,6 +28,7 @@ export class SuperheroesController {
   }
 
   @Put(':name')
+  @ApiBody({ type: Superhero })
   update(
     @Param('name') name: string,
     @Body() updateSuperheroDto: Superhero,
