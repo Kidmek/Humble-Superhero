@@ -22,13 +22,13 @@ const App: React.FC = () => {
     }
   };
 
-  const onDelete = async (name: string) => {
+  const onDelete = async (id: number) => {
     const userResponse = window.confirm(
       "Are you sure you want to delete this superhero?"
     );
     if (userResponse) {
       try {
-        const response = await fetch(`${API_URL}/${name}`, {
+        const response = await fetch(`${API_URL}/${id}`, {
           method: "DELETE",
         });
         if (response.ok) {
@@ -86,7 +86,7 @@ const App: React.FC = () => {
                     </button>
                     <button
                       className={styles.delete}
-                      onClick={() => onDelete(hero.name)}
+                      onClick={() => onDelete(hero.id!)}
                     >
                       Delete
                     </button>

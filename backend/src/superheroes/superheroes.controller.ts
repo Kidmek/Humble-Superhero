@@ -10,6 +10,7 @@ import {
 import { SuperheroesService } from './superheroes.service';
 import { Superhero } from './entities/superhero.entity';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { CreateSuperheroDto } from './dto/create-superhero.dto';
 
 @ApiTags('superheroes')
 @Controller('superheroes')
@@ -17,27 +18,27 @@ export class SuperheroesController {
   constructor(private readonly superheroesService: SuperheroesService) {}
 
   @Post()
-  @ApiBody({ type: Superhero })
-  create(@Body() createSuperheroDto: Superhero): Superhero[] {
+  @ApiBody({ type: CreateSuperheroDto })
+  create(@Body() createSuperheroDto: CreateSuperheroDto): Promise<string> {
     return this.superheroesService.addSuperhero(createSuperheroDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<Superhero[]> {
     return this.superheroesService.getSuperheroes();
   }
 
-  @Put(':name')
-  @ApiBody({ type: Superhero })
+  @Put(':id')
+  @ApiBody({ type: CreateSuperheroDto })
   update(
-    @Param('name') name: string,
-    @Body() updateSuperheroDto: Superhero,
-  ): Superhero {
-    return this.superheroesService.updateSuperhero(name, updateSuperheroDto);
+    @Param('id') id: number,
+    @Body() updateSuperheroDto: CreateSuperheroDto,
+  ): Promise<string> {
+    return this.superheroesService.updateSuperhero(id, updateSuperheroDto);
   }
 
-  @Delete(':name')
-  delete(@Param('name') name: string): Superhero[] {
-    return this.superheroesService.deleteSuperhero(name);
+  @Delete(':id')
+  delete(@Param('id') id: number): Promise<string> {
+    return this.superheroesService.deleteSuperhero(id);
   }
 }

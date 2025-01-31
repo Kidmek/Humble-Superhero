@@ -26,7 +26,7 @@ const AddSuperhero: React.FC<AddSuperheroProps> = ({
   });
 
   const addSuperhero = async (newHero: Superhero) => {
-    const api = selected ? `${API_URL}/${selected.name}` : API_URL;
+    const api = selected ? `${API_URL}/${selected.id}` : API_URL;
     try {
       const response = await fetch(api, {
         method: selected ? "PUT" : "POST",
