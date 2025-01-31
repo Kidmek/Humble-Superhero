@@ -2,6 +2,19 @@
 
 This project implements a simple web app for managing superheroes and their humility scores using NestJS for the backend and Vite/React for the frontend.
 
+## 📌 Important: About the `extra` Branch  
+
+🔹 This repository contains an additional branch called `extra`, which includes extra features that are **not part of the main implementation**.  
+
+🔹 The `extra` branch contains potential enhancements that may be added in the future, such as:  
+  - Editting and deleting functionality.
+  - Swagger documentation. (Accessible on localhost:3000/api)  
+  - Minor frontend changes.
+
+🔹 These features are **not required for the main project** but serve as an extension for future improvements.  
+
+---
+
 ## Project Structure
 
 ```
@@ -17,7 +30,8 @@ humble-superhero/
 1. `cd backend`
 2. `npm install`
 3. `npm run start:dev` (Runs on http://localhost:3000)
-4. `npm run test`(to run the test)
+4. `npm run test`
+(to run the test)
 
 ### Frontend
 
@@ -44,7 +58,7 @@ I would:
 
 - Use a real database instead of in-memory storage.
 - Implement pagination, filter and more flexible sorting.
-- Implement authentication so that users can rate superheros humility instead of setting it directly it would be the average of the votes.
+- Implement authentication so that users can rate superheroes humility instead of setting it directly it would be the average of the votes.
 - Realtime notification to be sent for superheroes in case of <mark>crisis</mark> :smiley:.
 - Improve the frontend UI/UX.
 - Integrate Swagger since there are going to be more apis.
